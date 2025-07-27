@@ -3,6 +3,8 @@ import styles from './Login.module.scss';
 import InputField from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import LoadingIndicator from '../../components/loading/LoadingIndicator';
+import { useNavigate } from 'react-router-dom';
+
 const logo = 'https://res.cloudinary.com/omair1996/image/upload/v1753602119/logo_vizdby.png';
 const illustration =
   'https://res.cloudinary.com/omair1996/image/upload/v1753593871/pablo-sign-in_1_qh7emf.svg';
@@ -12,6 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: false, password: false });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const validateEmail = (email: string) =>
     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
@@ -28,7 +31,7 @@ const Login = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      alert('Logged in!');
+      navigate('/dashboard', { replace: true });
     }, 2000);
   };
 
@@ -62,10 +65,12 @@ const Login = () => {
               showToggle
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              error={errors.password}
             />
             <a href="#" className={styles.forgot}>
               FORGOT PASSWORD?
             </a>
+
             <Button type="submit" disabled={loading}>
               {loading ? 'Logging in...' : 'Login'}
             </Button>

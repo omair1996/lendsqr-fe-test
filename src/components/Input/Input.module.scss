@@ -6,13 +6,10 @@
   input {
     width: 95%;
     padding: 1rem;
-<<<<<<< Updated upstream
     border: 1px solid #ccc;
     border-radius: 4px;
-=======
     border: 1px solid $border-color;
     border-radius: $spacing-xs;
->>>>>>> Stashed changes
     font-size: $font-md;
     font-weight: 400;
     line-height: 1.5;
@@ -23,11 +20,16 @@
     }
   }
 
-  .error {
-    color: $error-color;
+  .errorText {
+    color: $danger-color;
     font-size: $font-sm;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
+
+  .inputField.error input {
+    border: 1px solid $danger-color;
+  }
+
   .toggle {
     position: absolute;
     right: 1.5rem;

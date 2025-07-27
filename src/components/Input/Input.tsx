@@ -34,6 +34,7 @@ const InputField = ({ type, placeholder, showToggle = false, value, onChange, er
           {visible ? 'HIDE' : 'SHOW'}
         </span>
       )}
+      {error && <span className={styles.errorText}>This field is required</span>}
     </div>
   );
 };
