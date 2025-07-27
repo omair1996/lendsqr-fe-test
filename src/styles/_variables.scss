@@ -1,8 +1,24 @@
-:root {
-  --color-primary: #39cdcc;
-  --color-dark: #213f7d;
-  --color-light: #f5f5f5;
-  --font-main: "Work Sans", sans-serif;
-  --border-radius: 8px;
-  --transition: 0.3s ease-in-out;
-}
+// Declare variables with !default
+$primary-color: #39cdcc !default;
+$secondary-color: #213f7d !default;
+$gray-color: #545f7d !default;
+$light-gray: #e5e5e5 !default;
+$danger-color: #e4033b !default;
+$white: #ffffff !default;
+$heading: #213f7d !default;
+$text: #545f7d !default;
+
+$font-sm: 0.875rem !default;
+$font-md: 1rem !default;
+$font-lg: 1.25rem !default;
+$font-xl: 2rem !default;
+
+$spacing-xs: 4px !default;
+$spacing-sm: 8px !default;
+$spacing-md: 16px !default;
+$spacing-lg: 24px !default;
+$spacing-xl: 32px !default;
+
+$breakpoint-sm: 480px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-lg: 1024px !default;

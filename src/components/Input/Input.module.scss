@@ -1,0 +1,24 @@
+.inputWrapper {
+  position: relative;
+
+  input {
+    width: 95%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .toggle {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #39cdcc;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.85rem;
+  }
+}

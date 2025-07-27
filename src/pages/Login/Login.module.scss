@@ -1,0 +1,102 @@
+@use '../../styles/variables' as *;
+
+.loginWrapper {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'AvenirNext', sans-serif;
+}
+
+.leftPane {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  position: relative;
+
+  .logo {
+    position: absolute;
+    top: 5rem;
+    left: 10rem;
+    width: 150px;
+    height: auto;
+  }
+
+  .image {
+    width: 80%;
+    max-width: 600px;
+  }
+}
+
+.rightPane {
+  flex: 1;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  background-color: #f9f9f9;
+  .formWrapper {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h2 {
+    font-size: 40px;
+    color: $heading;
+    line-height: '100%';
+    font-weight: 700;
+    letter-spacing: -4%;
+  }
+
+  p {
+    margin-bottom: 2rem;
+    color: $text;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .forgot {
+    color: #39cdcc;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 10%;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 768px) {
+  .loginWrapper {
+    flex-direction: column;
+
+    .leftPane {
+      display: none;
+    }
+
+    .rightPane {
+      padding: 2rem;
+      .formWrapper {
+        width: 100%;
+        padding: 1rem;
+      }
+
+      h2 {
+        font-size: 32px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+}
