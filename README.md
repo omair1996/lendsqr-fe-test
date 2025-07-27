@@ -41,4 +41,3 @@ src/
 ├── main.tsx
 
 ---
-# lendsqr-fe-test

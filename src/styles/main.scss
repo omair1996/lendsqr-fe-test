@@ -1,0 +1,9 @@
+@import "./_variables.scss";
+@import "./_mixins.scss";
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-light);
+  margin: 0;
+  padding: 0;
+}
