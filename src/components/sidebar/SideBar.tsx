@@ -18,10 +18,12 @@ import {
   ScrollText,
   ChevronDown,
   ChevronUp,
+  Menu,
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './Sidebar.module.scss';
+import { useEffect } from 'react';
 
 type SidebarItem = {
   icon: React.ElementType;
@@ -83,42 +85,63 @@ const sidebarItems: SidebarGroup[] = [
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const isNowMobile = window.innerWidth <= 768;
+      setIsMobile(isNowMobile);
+      if (isNowMobile) {
+        setCollapsed(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
-    <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
-      <button className={styles.collapseBtn} onClick={() => setCollapsed(!collapsed)}>
-        {collapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
-      </button>
+    <>
+      {isMobile && collapsed && (
+        <button className={styles.menuBtn} onClick={() => setCollapsed(false)}>
+          <Menu size={24} />
+        </button>
+      )}
+      <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
+        <button className={styles.collapseBtn} onClick={() => setCollapsed(!collapsed)}>
+          {collapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+        </button>
 
-      {sidebarItems.map((group, i) => (
-        <div key={i} className="">
-          {group.section && <p className={styles.sidebarSection}>{group.section}</p>}
-          {group.items.map(({ icon: Icon, label, path, isOrgSwitcher }) =>
-            path ? (
-              <NavLink
-                to={path}
-                key={label}
-                className={({ isActive }) =>
-                  `${styles.sidebarItem} ${isActive ? styles.active : ''} ${
-                    isOrgSwitcher ? styles.orgSwitch : ''
-                  }`
-                }
-              >
-                <Icon size={16} />
-                {!collapsed && <span>{label}</span>}
-              </NavLink>
-            ) : (
-              <div
-                key={label}
-                className={`${styles.sidebarItem} ${isOrgSwitcher ? styles.orgSwitch : ''}`}
-              >
-                <Icon size={16} />
-                {!collapsed && <span>{label}</span>}
-              </div>
-            )
-          )}
-        </div>
-      ))}
-    </aside>
+        {sidebarItems.map((group, i) => (
+          <div key={i} className="">
+            {group.section && <p className={styles.sidebarSection}>{group.section}</p>}
+            {group.items.map(({ icon: Icon, label, path, isOrgSwitcher }) =>
+              path ? (
+                <NavLink
+                  to={path}
+                  key={label}
+                  className={({ isActive }) =>
+                    `${styles.sidebarItem} ${isActive ? styles.active : ''} ${
+                      isOrgSwitcher ? styles.orgSwitch : ''
+                    }`
+                  }
+                >
+                  <Icon size={16} />
+                  {!collapsed && <span>{label}</span>}
+                </NavLink>
+              ) : (
+                <div
+                  key={label}
+                  className={`${styles.sidebarItem} ${isOrgSwitcher ? styles.orgSwitch : ''}`}
+                >
+                  <Icon size={16} />
+                  {!collapsed && <span>{label}</span>}
+                </div>
+              )
+            )}
+          </div>
+        ))}
+      </aside>
+    </>
   );
 }

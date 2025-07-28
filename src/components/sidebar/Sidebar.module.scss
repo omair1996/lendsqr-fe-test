@@ -46,10 +46,13 @@
     align-items: center;
     gap: $spacing-sm;
     padding: $spacing-sm $spacing-md;
-    margin-bottom: 4px;
+    margin-bottom: $spacing-xs;
     font-size: $font-sm;
     color: $gray-color;
-    border-radius: 4px;
+    border-radius: $spacing-xs;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
     transition: background 0.2s ease, border-left 0.2s ease;
     text-decoration: none;
 
@@ -65,7 +68,7 @@
       background-color: rgba(57, 205, 204, 0.1);
       color: $primary-color;
       font-weight: 600;
-      border-left: 3px solid $primary-color;
+      border-left: $spacing-xs - 1 solid $primary-color;
 
       svg {
         color: $primary-color;
@@ -81,6 +84,57 @@
       svg {
         color: $secondary-color;
       }
+    }
+  }
+}
+.menuBtn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: $white;
+  border: 1px solid $light-gray;
+  padding: 0.5rem;
+  border-radius: $spacing-xs;
+  z-index: 200;
+  display: none;
+  cursor: pointer;
+
+  svg {
+    color: $gray-color;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    display: block;
+  }
+}
+@media (max-width: $breakpoint-md) {
+  .sidebar {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 80px;
+    padding: $spacing-sm;
+    overflow: hidden;
+
+    &.collapsed {
+      width: 0;
+      padding: 0;
+      overflow: hidden;
+
+      .collapseBtn {
+        display: none;
+      }
+    }
+
+    .sidebarItem span,
+    .sidebarSection {
+      display: none;
+    }
+
+    .collapseBtn {
+      margin-bottom: $spacing-sm;
     }
   }
 }
