@@ -1,0 +1,86 @@
+@use '../../styles/variables.scss' as *;
+
+.sidebar {
+  width: 250px;
+  background-color: $white;
+
+  padding: $spacing-md;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  outline: none;
+
+  &.collapsed {
+    width: 80px;
+
+    .sidebarItem span,
+    .sidebarSection {
+      display: none;
+    }
+  }
+
+  .collapseBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: $spacing-md;
+    align-self: flex-end;
+    color: $gray-color;
+  }
+
+  .sidebarSection {
+    font-size: 10px;
+    font-weight: 600;
+    color: $gray-color;
+    margin: $spacing-lg 0 $spacing-sm;
+    padding-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .sidebarItem {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-sm $spacing-md;
+    margin-bottom: 4px;
+    font-size: $font-sm;
+    color: $gray-color;
+    border-radius: 4px;
+    transition: background 0.2s ease, border-left 0.2s ease;
+    text-decoration: none;
+
+    svg {
+      color: inherit;
+    }
+
+    &:hover {
+      background-color: $light-gray;
+    }
+
+    &.active {
+      background-color: rgba(57, 205, 204, 0.1);
+      color: $primary-color;
+      font-weight: 600;
+      border-left: 3px solid $primary-color;
+
+      svg {
+        color: $primary-color;
+      }
+    }
+
+    &.orgSwitch {
+      font-weight: 600;
+      color: $secondary-color;
+      display: flex;
+      justify-content: space-between;
+
+      svg {
+        color: $secondary-color;
+      }
+    }
+  }
+}
