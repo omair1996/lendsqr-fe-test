@@ -95,3 +95,13 @@
   cursor: pointer;
   color: #213f7d;
 }
+
+@media (max-width: $breakpoint-md) {
+  .navbar {
+    padding: 1rem 5rem;
+  }
+
+  .right {
+    display: none;
+  }
+}
