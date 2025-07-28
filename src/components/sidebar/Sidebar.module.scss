@@ -1,0 +1,140 @@
+@use '../../styles/variables.scss' as *;
+
+.sidebar {
+  width: 250px;
+  background-color: $white;
+
+  padding: $spacing-md;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  outline: none;
+
+  &.collapsed {
+    width: 80px;
+
+    .sidebarItem span,
+    .sidebarSection {
+      display: none;
+    }
+  }
+
+  .collapseBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: $spacing-md;
+    align-self: flex-end;
+    color: $gray-color;
+  }
+
+  .sidebarSection {
+    font-size: 10px;
+    font-weight: 600;
+    color: $gray-color;
+    margin: $spacing-lg 0 $spacing-sm;
+    padding-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .sidebarItem {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-sm $spacing-md;
+    margin-bottom: $spacing-xs;
+    font-size: $font-sm;
+    color: $gray-color;
+    border-radius: $spacing-xs;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s ease, border-left 0.2s ease;
+    text-decoration: none;
+
+    svg {
+      color: inherit;
+    }
+
+    &:hover {
+      background-color: $light-gray;
+    }
+
+    &.active {
+      background-color: rgba(57, 205, 204, 0.1);
+      color: $primary-color;
+      font-weight: 600;
+      border-left: $spacing-xs - 1 solid $primary-color;
+
+      svg {
+        color: $primary-color;
+      }
+    }
+
+    &.orgSwitch {
+      font-weight: 600;
+      color: $secondary-color;
+      display: flex;
+      justify-content: space-between;
+
+      svg {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+.menuBtn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: $white;
+  border: 1px solid $light-gray;
+  padding: 0.5rem;
+  border-radius: $spacing-xs;
+  z-index: 200;
+  display: none;
+  cursor: pointer;
+
+  svg {
+    color: $gray-color;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    display: block;
+  }
+}
+@media (max-width: $breakpoint-md) {
+  .sidebar {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 80px;
+    padding: $spacing-sm;
+    overflow: hidden;
+
+    &.collapsed {
+      width: 0;
+      padding: 0;
+      overflow: hidden;
+
+      .collapseBtn {
+        display: none;
+      }
+    }
+
+    .sidebarItem span,
+    .sidebarSection {
+      display: none;
+    }
+
+    .collapseBtn {
+      margin-bottom: $spacing-sm;
+    }
+  }
+}
