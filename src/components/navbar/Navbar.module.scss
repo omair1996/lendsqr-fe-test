@@ -1,0 +1,107 @@
+@use '../../styles/_variables.scss' as *;
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: $white;
+  border-bottom: 1px solid $border-color;
+}
+
+.left {
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.searchContainer {
+  flex: 1;
+  max-width: 450px;
+  display: flex;
+  align-items: center;
+  margin: 0 2rem;
+}
+
+.searchInput {
+  flex: 1;
+  height: $spacing-lg + $spacing-sm;
+  width: 100%;
+
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  border: none;
+  background-color: $background;
+  border-radius: 8px 0 0 8px;
+  border: 1px solid $border-color;
+
+  transition: border 0.2s ease;
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $text;
+  }
+}
+
+.searchBtn {
+  height: $spacing-xl + $spacing-xs;
+  min-width: $spacing-xl + $spacing-md;
+  border-radius: 0 $spacing-sm $spacing-sm 0;
+  background-color: $primary-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+
+  svg {
+    stroke: white;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.docsLink {
+  color: #213f7d;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bellIcon {
+  cursor: pointer;
+  color: #213f7d;
+}
+
+.avatar {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.username {
+  font-size: 0.9rem;
+  color: #213f7d;
+}
+
+.chevronIcon {
+  cursor: pointer;
+  color: #213f7d;
+}
+
+@media (max-width: $breakpoint-md) {
+  .navbar {
+    padding: 1rem 5rem;
+  }
+
+  .right {
+    display: none;
+  }
+}
