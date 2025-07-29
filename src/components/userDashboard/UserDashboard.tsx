@@ -6,11 +6,21 @@ import Pagination from '../pagination/Pagination';
 import type { User } from '@/types/User';
 import FilterModal from '../filterModal/FilterModal';
 
+type FilterValues = {
+  organization?: string;
+  username?: string;
+  email?: string;
+  date?: string;
+  phone?: string;
+  status?: string;
+};
+
 export default function UserDashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const [filterValues, setFilterValues] = useState<FilterValues>({});
 
   useEffect(() => {
     fetch('/mock/users.json')
@@ -18,10 +28,21 @@ export default function UserDashboard() {
       .then(setUsers);
   }, []);
 
-  const totalPages = Math.max(1, Math.ceil(users.length / itemsPerPage));
+  const filteredUsers = users.filter((user) => {
+    return (
+      (!filterValues.organization || user.organization.includes(filterValues.organization)) &&
+      (!filterValues.username || user.username.includes(filterValues.username)) &&
+      (!filterValues.email || user.email.includes(filterValues.email)) &&
+      (!filterValues.date || user.date_joined.includes(filterValues.date)) &&
+      (!filterValues.phone || user.phone.includes(filterValues.phone)) &&
+      (!filterValues.status || user.status.toLowerCase() === filterValues.status.toLowerCase())
+    );
+  });
+
+  const totalPages = Math.max(1, Math.ceil(filteredUsers.length / itemsPerPage));
   const startIdx = (page - 1) * itemsPerPage;
   const endIdx = startIdx + itemsPerPage;
-  const paginatedUsers = users.slice(startIdx, endIdx);
+  const paginatedUsers = filteredUsers.slice(startIdx, endIdx);
 
   useEffect(() => {
     setPage(1);
@@ -69,7 +90,22 @@ export default function UserDashboard() {
               <th></th>
             </tr>
           </thead>
-          {showFilterModal && <FilterModal onClose={() => setShowFilterModal(false)} />}
+          {showFilterModal && (
+            <FilterModal
+              onClose={() => setShowFilterModal(false)}
+              onApply={(filters) => {
+                setFilterValues(filters);
+                setShowFilterModal(false);
+              }}
+              onReset={() => {
+                setFilterValues({});
+                setShowFilterModal(false);
+              }}
+              values={filterValues}
+              setValues={setFilterValues}
+            />
+          )}
+
           <tbody>
             {paginatedUsers.map((user) => (
               <tr key={user.id}>
