@@ -1,8 +1,9 @@
+import UserDashboard from '../../components/userDashboard/UserDashboard';
+
 const Dashboard = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
+      <UserDashboard />
     </div>
   );
 };

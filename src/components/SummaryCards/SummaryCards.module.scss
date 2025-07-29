@@ -1,0 +1,33 @@
+@use '../../styles/variables.scss' as *;
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  flex: 1;
+  min-width: 180px;
+  background: #fff;
+  padding: 1rem;
+  border-radius: $spacing-sm;
+  border: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  color: $text;
+
+  p {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $secondary-color;
+  }
+}

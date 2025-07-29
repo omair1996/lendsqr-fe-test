@@ -1,0 +1,97 @@
+@use '../../styles/variables.scss' as *;
+
+.container {
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.title {
+  font-size: $font-lg;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: $secondary-color;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-md;
+    text-align: center;
+  }
+}
+
+.tableContainer {
+  overflow-x: auto;
+  background: $white;
+  border-radius: $spacing-sm;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+
+  th,
+  td {
+    padding: 1rem;
+    text-align: left;
+    font-size: $font-sm;
+    color: $text;
+
+    @media (max-width: $breakpoint-md) {
+      padding: 0.75rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  th {
+    background: $background;
+    font-weight: 500;
+
+    svg {
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+  }
+
+  tr:not(:last-child) {
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+.status {
+  padding: 0.4rem 0.8rem;
+  border-radius: $spacing-sm + $spacing-xs;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.active {
+  background: #f3fcf6;
+  color: $primary-color;
+}
+
+.inactive {
+  background: $background;
+  color: $text;
+}
+
+.pending {
+  background: #fff5e0;
+  color: #e9b200;
+}
+
+.blacklisted {
+  background: #fde6e6;
+  color: $danger-color;
+}
+
+.menuBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $text;
+}
