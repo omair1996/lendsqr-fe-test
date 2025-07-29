@@ -1,0 +1,37 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  flex: 1;
+  min-width: 180px;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  color: #545f7d;
+
+  svg {
+    font-size: 1.2rem;
+    color: #213f7d;
+  }
+
+  p {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #213f7d;
+  }
+}
