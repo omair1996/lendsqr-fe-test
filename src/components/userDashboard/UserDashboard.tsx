@@ -4,9 +4,6 @@ import SummaryCards from '../SummaryCards/SummaryCards';
 import { MoreVertical, ListFilter } from 'lucide-react';
 import Pagination from '../pagination/Pagination';
 import type { User } from '@/types/User';
-import type { PaginationType } from '@/types/pagination';
-
-type Props = PaginationType;
 
 export default function UserDashboard() {
   const [users, setUsers] = useState<User[]>([]);

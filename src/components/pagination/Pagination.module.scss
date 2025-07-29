@@ -6,12 +6,12 @@
   align-items: center;
   margin-top: 2rem;
   flex-wrap: wrap;
-}
-.buttonWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   gap: 1rem;
+
+  @media (max-width: $breakpoint-md) {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .sortWrapper {
@@ -32,7 +32,26 @@
   .select {
     margin-left: 0;
     font-weight: 500;
+    width: auto;
+
+    @media (max-width: $breakpoint-sm) {
+      width: 100%;
+    }
   }
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .pageBtn,
@@ -73,4 +92,22 @@
   padding: 0.6rem 1rem;
   color: $text;
   pointer-events: none;
+}
+
+@media (max-width: $breakpoint-sm) {
+  .pageBtn,
+  .navBtn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .select {
+    padding: 0.4rem;
+    font-size: 0.75rem;
+  }
+
+  .dots {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
 }
