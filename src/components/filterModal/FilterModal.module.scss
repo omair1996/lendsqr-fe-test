@@ -1,0 +1,121 @@
+@use '../../styles/variables.scss' as *;
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  z-index: 1;
+  padding-left: 295px;
+  padding-top: 12rem;
+  width: 270px;
+}
+
+.modalContent {
+  background: $white;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: $font-lg;
+}
+
+.closeBtn {
+  cursor: pointer;
+  font-size: $font-md;
+}
+
+.modalBody label {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.modalBody input,
+.modalBody select {
+  width: 90%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+  }
+}
+
+.modalBody select {
+  width: 100%;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.modalFooter button {
+  cursor: pointer;
+}
+
+.resetBtn {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.filterBtn {
+  background: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+@media screen and (max-width: $breakpoint-md) {
+  .modalOverlay {
+    padding-left: 1rem;
+    padding-top: 6rem;
+    width: calc(100% - 2rem);
+    justify-content: center;
+  }
+
+  .modalContent {
+    padding: 1.5rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 90vw;
+  }
+
+  .modalHeader {
+    font-size: 1rem;
+  }
+
+  .closeBtn {
+    font-size: 1.25rem;
+  }
+
+  .modalBody input,
+  .modalBody select {
+    width: 100%;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modalFooter button {
+    width: 100%;
+  }
+}
