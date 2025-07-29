@@ -1,3 +1,4 @@
+@use '../../styles/variables.scss' as *;
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -10,18 +11,13 @@
   min-width: 180px;
   background: #fff;
   padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid #eee;
+  border-radius: $spacing-sm;
+  border: 1px solid $border-color;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   align-items: flex-start;
-  color: #545f7d;
-
-  svg {
-    font-size: 1.2rem;
-    color: #213f7d;
-  }
+  color: $text;
 
   p {
     font-size: 0.8rem;
@@ -32,6 +28,6 @@
   h3 {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #213f7d;
+    color: $secondary-color;
   }
 }

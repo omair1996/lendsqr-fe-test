@@ -1,19 +1,31 @@
+@use '../../styles/variables.scss' as *;
+
 .container {
   padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: $font-lg;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #213f7d;
+  color: $secondary-color;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-md;
+    text-align: center;
+  }
 }
 
 .tableContainer {
   overflow-x: auto;
-  background: #fff;
-  border-radius: 8px;
+  background: $white;
+  border-radius: $spacing-sm;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
 }
 
 .table {
@@ -25,12 +37,17 @@
   td {
     padding: 1rem;
     text-align: left;
-    font-size: 0.875rem;
-    color: #545f7d;
+    font-size: $font-sm;
+    color: $text;
+
+    @media (max-width: $breakpoint-md) {
+      padding: 0.75rem;
+      font-size: 0.875rem;
+    }
   }
 
   th {
-    background: #f9f9f9;
+    background: $background;
     font-weight: 500;
 
     svg {
@@ -40,13 +57,13 @@
   }
 
   tr:not(:last-child) {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $border-color;
   }
 }
 
 .status {
   padding: 0.4rem 0.8rem;
-  border-radius: 12px;
+  border-radius: $spacing-sm + $spacing-xs;
   font-size: 0.75rem;
   font-weight: 500;
   text-transform: capitalize;
@@ -54,12 +71,12 @@
 
 .active {
   background: #f3fcf6;
-  color: #39cd62;
+  color: $primary-color;
 }
 
 .inactive {
-  background: #f5f6fa;
-  color: #545f7d;
+  background: $background;
+  color: $text;
 }
 
 .pending {
@@ -69,12 +86,12 @@
 
 .blacklisted {
   background: #fde6e6;
-  color: #e4033b;
+  color: $danger-color;
 }
 
 .menuBtn {
   background: none;
   border: none;
   cursor: pointer;
-  color: #545f7d;
+  color: $text;
 }
