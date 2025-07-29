@@ -1,0 +1,81 @@
+@use '../../styles/variables.scss' as *;
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  z-index: 1;
+  padding-left: 300px;
+  padding-top: 12rem;
+  width: 270px;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.closeBtn {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.modalBody label {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.modalBody input,
+.modalBody select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+  }
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.modalFooter button {
+  cursor: pointer;
+}
+
+.resetBtn {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.filterBtn {
+  background: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}

@@ -4,11 +4,13 @@ import SummaryCards from '../SummaryCards/SummaryCards';
 import { MoreVertical, ListFilter } from 'lucide-react';
 import Pagination from '../pagination/Pagination';
 import type { User } from '@/types/User';
+import FilterModal from '../filterModal/FilterModal';
 
 export default function UserDashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [showFilterModal, setShowFilterModal] = useState(false);
 
   useEffect(() => {
     fetch('/mock/users.json')
@@ -30,7 +32,6 @@ export default function UserDashboard() {
       setPage(totalPages);
     }
   }, [totalPages, page]);
-  console.log({ page, itemsPerPage, totalPages });
 
   return (
     <div className={styles.container}>
@@ -42,26 +43,33 @@ export default function UserDashboard() {
           <thead>
             <tr>
               <th>
-                Organization <ListFilter />
+                Organization{' '}
+                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
               </th>
               <th>
-                Username <ListFilter />
+                Username{' '}
+                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
               </th>
               <th>
-                Email <ListFilter />
+                Email{' '}
+                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
               </th>
               <th>
-                Phone Number <ListFilter />
+                Phone Number{' '}
+                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
               </th>
               <th>
-                Date Joined <ListFilter />
+                Date Joined{' '}
+                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
               </th>
               <th>
-                Status <ListFilter />
+                Status{' '}
+                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
               </th>
               <th></th>
             </tr>
           </thead>
+          {showFilterModal && <FilterModal onClose={() => setShowFilterModal(false)} />}
           <tbody>
             {paginatedUsers.map((user) => (
               <tr key={user.id}>
