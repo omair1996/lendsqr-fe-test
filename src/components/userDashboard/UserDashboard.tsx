@@ -2,28 +2,35 @@ import styles from './UserDashboard.module.scss';
 import { useEffect, useState } from 'react';
 import SummaryCards from '../SummaryCards/SummaryCards';
 import { MoreVertical, ListFilter } from 'lucide-react';
-
-interface User {
-  id: string;
-  organization: string;
-  username: string;
-  email: string;
-  phone: string;
-  date_joined: string;
-  status: string;
-  profile: { avatar: string };
-  hasLoan: boolean;
-  hasSavings: boolean;
-}
+import Pagination from '../pagination/Pagination';
+import type { User } from '@/types/User';
 
 export default function UserDashboard() {
   const [users, setUsers] = useState<User[]>([]);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     fetch('/mock/users.json')
       .then((res) => res.json())
       .then(setUsers);
   }, []);
+
+  const totalPages = Math.max(1, Math.ceil(users.length / itemsPerPage));
+  const startIdx = (page - 1) * itemsPerPage;
+  const endIdx = startIdx + itemsPerPage;
+  const paginatedUsers = users.slice(startIdx, endIdx);
+
+  useEffect(() => {
+    setPage(1);
+  }, [itemsPerPage]);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [totalPages, page]);
+  console.log({ page, itemsPerPage, totalPages });
 
   return (
     <div className={styles.container}>
@@ -56,7 +63,7 @@ export default function UserDashboard() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {paginatedUsers.map((user) => (
               <tr key={user.id}>
                 <td>{user.organization}</td>
                 <td>{user.username}</td>
@@ -78,6 +85,14 @@ export default function UserDashboard() {
           </tbody>
         </table>
       </div>
+
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        itemsPerPage={itemsPerPage}
+        onItemsPerPageChange={setItemsPerPage}
+      />
     </div>
   );
 }

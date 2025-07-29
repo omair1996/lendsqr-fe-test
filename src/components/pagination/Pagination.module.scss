@@ -1,0 +1,113 @@
+@use '../../styles/variables.scss' as *;
+
+.paginationWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  @media (max-width: $breakpoint-md) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.sortWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  background-color: $background;
+  padding: 0.5rem 1rem;
+  border-radius: $spacing-sm;
+  border: 1px solid $border-color;
+  color: $text;
+
+  span {
+    white-space: nowrap;
+  }
+
+  .select {
+    margin-left: 0;
+    font-weight: 500;
+    width: auto;
+
+    @media (max-width: $breakpoint-sm) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pageBtn,
+.navBtn {
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+  background-color: white;
+  border: 1px solid $border-color;
+  border-radius: $spacing-sm;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: $light-gray;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.pageBtn.active {
+  background-color: $primary-color;
+  color: white;
+  border-color: $primary-color;
+}
+
+.select {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid $border-color;
+  border-radius: $spacing-sm;
+}
+
+.dots {
+  padding: 0.6rem 1rem;
+  color: $text;
+  pointer-events: none;
+}
+
+@media (max-width: $breakpoint-sm) {
+  .pageBtn,
+  .navBtn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .select {
+    padding: 0.4rem;
+    font-size: 0.75rem;
+  }
+
+  .dots {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
