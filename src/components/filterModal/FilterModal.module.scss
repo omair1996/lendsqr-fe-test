@@ -7,16 +7,15 @@
   justify-content: start;
   align-items: center;
   z-index: 1;
-  padding-left: 300px;
+  padding-left: 295px;
   padding-top: 12rem;
   width: 270px;
 }
 
 .modalContent {
-  background: white;
+  background: $white;
   padding: 2rem;
   border-radius: 15px;
-  width: 90%;
   max-width: 500px;
 }
 
@@ -25,12 +24,12 @@
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: $font-lg;
 }
 
 .closeBtn {
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: $font-md;
 }
 
 .modalBody label {
@@ -42,7 +41,7 @@
 
 .modalBody input,
 .modalBody select {
-  width: 100%;
+  width: 90%;
   padding: 0.5rem;
   margin-top: 0.25rem;
   border: 1px solid #ccc;
@@ -52,6 +51,10 @@
     border-color: $primary-color;
     outline: none;
   }
+}
+
+.modalBody select {
+  width: 100%;
 }
 
 .modalFooter {
@@ -78,4 +81,41 @@
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
+}
+@media screen and (max-width: $breakpoint-md) {
+  .modalOverlay {
+    padding-left: 1rem;
+    padding-top: 6rem;
+    width: calc(100% - 2rem);
+    justify-content: center;
+  }
+
+  .modalContent {
+    padding: 1.5rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 90vw;
+  }
+
+  .modalHeader {
+    font-size: 1rem;
+  }
+
+  .closeBtn {
+    font-size: 1.25rem;
+  }
+
+  .modalBody input,
+  .modalBody select {
+    width: 100%;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modalFooter button {
+    width: 100%;
+  }
 }

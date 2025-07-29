@@ -22,16 +22,16 @@ export default function FilterModal({ onClose }: FilterModalProps) {
           </select>
 
           <label>USERNAME</label>
-          <input type="text" />
+          <input type="text" placeholder=" user" />
 
           <label>EMAIL</label>
-          <input type="text" />
+          <input type="text" placeholder="email" />
 
           <label>DATE</label>
-          <input type="date" />
+          <input type="date" placeholder="date" />
 
           <label>PHONE NUMBER</label>
-          <input type="text" />
+          <input type="text" placeholder="phone Number" />
 
           <label>STATUS</label>
           <select>
