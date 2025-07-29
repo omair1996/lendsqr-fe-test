@@ -1,0 +1,76 @@
+@use '../../styles/variables.scss' as *;
+
+.paginationWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sortWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  background-color: $background;
+  padding: 0.5rem 1rem;
+  border-radius: $spacing-sm;
+  border: 1px solid $border-color;
+  color: $text;
+
+  span {
+    white-space: nowrap;
+  }
+
+  .select {
+    margin-left: 0;
+    font-weight: 500;
+  }
+}
+
+.pageBtn,
+.navBtn {
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+  background-color: white;
+  border: 1px solid $border-color;
+  border-radius: $spacing-sm;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: $light-gray;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.pageBtn.active {
+  background-color: $primary-color;
+  color: white;
+  border-color: $primary-color;
+}
+
+.select {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid $border-color;
+  border-radius: $spacing-sm;
+}
+
+.dots {
+  padding: 0.6rem 1rem;
+  color: $text;
+  pointer-events: none;
+}
