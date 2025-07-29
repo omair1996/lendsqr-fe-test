@@ -1,10 +1,11 @@
 import styles from './UserDashboard.module.scss';
 import { useEffect, useState } from 'react';
 import SummaryCards from '../SummaryCards/SummaryCards';
-import { MoreVertical, ListFilter } from 'lucide-react';
+import { ListFilter } from 'lucide-react';
 import Pagination from '../pagination/Pagination';
 import type { User } from '@/types/User';
 import FilterModal from '../filterModal/FilterModal';
+import ActionMenu from '../actionMenu/ActionMenu';
 
 type FilterValues = {
   organization?: string;
@@ -120,9 +121,7 @@ export default function UserDashboard() {
                   </span>
                 </td>
                 <td>
-                  <button className={styles.menuBtn}>
-                    <MoreVertical />
-                  </button>
+                  <ActionMenu user={user} setUsers={setUsers} />
                 </td>
               </tr>
             ))}
