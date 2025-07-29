@@ -5,7 +5,7 @@ import { ListFilter } from 'lucide-react';
 import Pagination from '../pagination/Pagination';
 import type { User } from '@/types/User';
 import FilterModal from '../filterModal/FilterModal';
-import ActionMenu from '../ActionMenu/ActionMenu';
+import ActionMenu from '../actionMenu/ActionMenu';
 
 type FilterValues = {
   organization?: string;
@@ -121,7 +121,7 @@ export default function UserDashboard() {
                   </span>
                 </td>
                 <td>
-                  <ActionMenu user={user} />
+                  <ActionMenu user={user} setUsers={setUsers} />
                 </td>
               </tr>
             ))}
