@@ -24,30 +24,27 @@ export default function UserDetails({ user: initialUser }: Props) {
   return (
     <div className={styles.wrapper}>
       {/* Header */}
+      <button className={styles.backBtn} onClick={() => navigate(-1)}>
+        <ArrowLeft size={18} /> Back to Users
+      </button>
       <div className={styles.header}>
-        <button className={styles.backBtn} onClick={() => navigate(-1)}>
-          <ArrowLeft size={18} /> Back to Users
-        </button>
+        <h3>User Details</h3>
         <div className={styles.actions}>
-          {otherStatuses.map((s) =>
-            s === 'active' ? (
-              <button
-                key={s}
-                className={styles.activate}
-                onClick={() => handleStatusChange('Active')}
-              >
-                Activate User
+          {otherStatuses.map((s) => {
+            const label = s.charAt(0).toUpperCase() + s.slice(1);
+            const className =
+              s === 'active'
+                ? styles.activate
+                : s === 'inactive'
+                ? styles.inactive
+                : styles.blacklist;
+
+            return (
+              <button key={s} className={className} onClick={() => handleStatusChange(label)}>
+                {label} User
               </button>
-            ) : (
-              <button
-                key={s}
-                className={styles.blacklist}
-                onClick={() => handleStatusChange(s.charAt(0).toUpperCase() + s.slice(1))}
-              >
-                {s.charAt(0).toUpperCase() + s.slice(1)} User
-              </button>
-            )
-          )}
+            );
+          })}
         </div>
       </div>
 
@@ -60,10 +57,11 @@ export default function UserDetails({ user: initialUser }: Props) {
           <h3>{profile.full_name}</h3>
           <p>{username}</p>
         </div>
-        <div>
+        <div className={styles.stars}>
           <p>User’s Tier</p>
-          <span className={styles.stars}>{'⭐️'.repeat(profile.tier || 1)}</span>
+          <span>{'⭐️'.repeat(profile.tier)}</span>
         </div>
+
         <div className={styles.accountDetails}>
           <h3>
             ₦
@@ -91,7 +89,7 @@ export default function UserDetails({ user: initialUser }: Props) {
       {/* Details */}
       <div className={styles.detailsGrid}>
         {/* Personal Info */}
-        <section>
+        <section className={styles.Personal}>
           <h4>Personal Information</h4>
           <div className={styles.infoRow}>
             <div>
