@@ -21,7 +21,7 @@
 
 .modalHeader {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   font-weight: bold;
   font-size: $font-lg;
@@ -30,13 +30,14 @@
 .closeBtn {
   cursor: pointer;
   font-size: $font-md;
+  color: $primary-color;
 }
 
 .modalBody label {
   display: block;
   margin-top: 1rem;
   font-size: 0.875rem;
-  color: #555;
+  color: $text;
 }
 
 .modalBody input,
@@ -44,9 +45,9 @@
   width: 90%;
   padding: 0.5rem;
   margin-top: 0.25rem;
-  border: 1px solid #ccc;
+  border: 1px solid $border-color;
   border-radius: 4px;
-  background: white;
+  background: $white;
   &:focus {
     border-color: $primary-color;
     outline: none;
