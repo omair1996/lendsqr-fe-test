@@ -1,0 +1,144 @@
+@use '../../styles/variables.scss' as *;
+
+.wrapper {
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .backBtn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $primary-color;
+    cursor: pointer;
+    font-size: $font-sm;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+
+    .blacklist {
+      background: none;
+      border: 1px solid $danger-color;
+      color: $danger-color;
+      padding: 0.5rem 1rem;
+      border-radius: $spacing-sm;
+      cursor: pointer;
+    }
+
+    .activate {
+      background: $primary-color;
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: $spacing-sm;
+      cursor: pointer;
+    }
+  }
+}
+
+.summaryCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $white;
+  padding: 1.5rem;
+  border-radius: $spacing-sm;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+
+  .avatar img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  h3 {
+    font-size: $font-md;
+    margin-bottom: 0.25rem;
+    color: $secondary-color;
+  }
+
+  p {
+    color: $text;
+    font-size: $font-sm;
+  }
+
+  .stars {
+    font-size: 1.25rem;
+    color: $primary-color;
+  }
+
+  .accountDetails {
+    text-align: right;
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 1rem;
+
+  span {
+    cursor: pointer;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    color: $text;
+
+    &.active {
+      color: $primary-color;
+      border-bottom: 2px solid $primary-color;
+    }
+  }
+}
+
+.detailsGrid {
+  background: $white;
+  padding: 2rem;
+  border-radius: $spacing-sm;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  section {
+    h4 {
+      color: $secondary-color;
+      font-size: $font-md;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .infoRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    div {
+      flex: 1 1 200px;
+
+      p {
+        font-size: $font-sm;
+        color: $text;
+        margin-bottom: 0.25rem;
+      }
+
+      h5 {
+        font-size: $font-sm;
+        color: $secondary-color;
+        font-weight: 500;
+      }
+    }
+  }
+}

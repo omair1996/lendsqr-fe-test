@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login/LogIn';
-import Dashboard from './pages/Dashboard/Dashboard';
 import MainLayout from './layouts/MainLayout';
+import User from './pages/Dashboard/Users/User';
+import UserDetailsPage from './pages/Dashboard/userDetails/UserDetails';
 
 function App() {
   return (
@@ -9,15 +10,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route
-          path="/dashboard"
+          path="/dashboard/user"
           element={
             <MainLayout>
-              <Dashboard />
+              <User />
             </MainLayout>
           }
         />
 
-        <Route path="/dashboard/*" element={<Navigate to="/dashboard" />} />
+        <Route
+          path="/dashboard/user/:id"
+          element={
+            <MainLayout>
+              <UserDetailsPage />
+            </MainLayout>
+          }
+        />
       </Routes>
     </Router>
   );
