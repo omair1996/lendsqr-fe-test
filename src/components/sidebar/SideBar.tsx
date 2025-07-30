@@ -49,7 +49,7 @@ const sidebarItems: SidebarGroup[] = [
   {
     section: 'CUSTOMERS',
     items: [
-      { icon: Users, label: 'Users', path: '/dashboard/users' },
+      { icon: Users, label: 'Users', path: '/dashboard/user' },
       { icon: UserPlus, label: 'Guarantors' },
       { icon: Landmark, label: 'Loans' },
       { icon: Coins, label: 'Decision Models' },

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './ActionMenu.module.scss';
 import { MoreVertical, Eye, XCircle, CheckCircle } from 'lucide-react';
 import type { User } from '@/types/User';
+import { useNavigate } from 'react-router-dom';
 
 export default function ActionMenu({
   user,
@@ -12,6 +13,7 @@ export default function ActionMenu({
 }) {
   const [show, setShow] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleStatusChange = (newStatus: string) => {
     setUsers((prevUsers) =>
@@ -42,7 +44,7 @@ export default function ActionMenu({
 
       {show && (
         <div className={styles.menu}>
-          <button className={styles.item}>
+          <button className={styles.item} onClick={() => navigate(`/dashboard/user/${user.id}`)}>
             <Eye className={styles.icon} />
             View Details
           </button>
