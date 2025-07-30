@@ -98,8 +98,14 @@ export default function UserDashboard() {
                 setShowFilterModal(false);
               }}
               onReset={() => {
-                setFilterValues({});
-                setShowFilterModal(false);
+                setFilterValues({
+                  organization: '',
+                  username: '',
+                  email: '',
+                  date: '',
+                  phone: '',
+                  status: '',
+                });
               }}
               values={filterValues}
               setValues={setFilterValues}

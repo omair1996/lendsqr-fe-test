@@ -1,4 +1,5 @@
 import styles from './FilterModal.module.scss';
+import { CircleX } from 'lucide-react';
 
 export interface FilterValues {
   organization?: string;
@@ -32,10 +33,8 @@ export default function FilterModal({
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <h3>FILTER</h3>
-          <span className={styles.closeBtn} onClick={onClose}>
-            ×
-          </span>
+          {/* <h3>FILTER</h3> */}
+          <CircleX className={styles.closeBtn} onClick={onClose} />
         </div>
 
         <div className={styles.modalBody}>
@@ -88,7 +87,7 @@ export default function FilterModal({
             <option value="">Select</option>
             <option value="active">Active</option>
             <option value="blacklisted">Blacklisted</option>
-            <option value="pending">Pending</option>
+            <option value="inactive">Inactive</option>
           </select>
         </div>
 
