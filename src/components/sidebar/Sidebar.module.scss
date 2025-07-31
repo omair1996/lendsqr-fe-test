@@ -10,6 +10,13 @@
   flex-direction: column;
   transition: width 0.3s ease;
   outline: none;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &.collapsed {
     width: 80px;
@@ -88,7 +95,7 @@
 }
 .menuBtn {
   position: fixed;
-  top: 1rem;
+  top: 0.5rem;
   left: 1rem;
   background: $white;
   border: 1px solid $light-gray;
