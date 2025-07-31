@@ -2,19 +2,18 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { User } from '@/types/User';
 import UserDetails from '@/components/userDetails/UserDetails';
+import { getWithExpiry } from '@/lib/utils';
 
 export default function UserDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('selectedUser');
-    if (storedUser) {
-      const parsedUser: User = JSON.parse(storedUser);
-      if (parsedUser.id.toString() === id) {
-        setUser(parsedUser);
-        return;
-      }
+    const storedUser = getWithExpiry<User>('selectedUser');
+
+    if (storedUser && storedUser.id && storedUser.id.toString() === id) {
+      setUser(storedUser);
+      return;
     }
 
     fetch('/mock/users.json')
@@ -25,7 +24,7 @@ export default function UserDetailsPage() {
       });
   }, [id]);
 
-  if (!user) return <p>User not found...</p>;
+  if (!user) return console.log('user not found');
 
   return <UserDetails user={user} />;
 }

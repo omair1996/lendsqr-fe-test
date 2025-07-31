@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import type { User } from '@/types/User';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setWithExpiry, getWithExpiry } from '@/lib/utils';
 
 interface Props {
   user: User;
@@ -21,18 +22,16 @@ export default function UserDetails({ user: initialUser }: Props) {
     const updatedUser = { ...user, status: newStatus };
     setUser(updatedUser);
 
-    localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
+    setWithExpiry('selectedUser', updatedUser, 1000 * 60 * 60);
 
-    const savedUsers = localStorage.getItem('users');
+    const savedUsers = getWithExpiry<User[]>('users');
     if (savedUsers) {
-      const parsedUsers: User[] = JSON.parse(savedUsers);
-      const updatedUsers = parsedUsers.map((u) => (u.id === updatedUser.id ? updatedUser : u));
-      localStorage.setItem('users', JSON.stringify(updatedUsers));
+      const updatedUsers = savedUsers.map((u) => (u.id === updatedUser.id ? updatedUser : u));
+      setWithExpiry('users', updatedUsers, 1000 * 60 * 60);
+
+      window.dispatchEvent(new Event('storage'));
     }
-
-    console.log('Saved to localStorage:', updatedUser);
   };
-
   return (
     <div className={styles.wrapper}>
       {/* Header */}
