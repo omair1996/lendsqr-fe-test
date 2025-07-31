@@ -22,7 +22,19 @@ export default function UserDashboard() {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [filterValues, setFilterValues] = useState<FilterValues>({});
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Check screen size
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  // Load users from localStorage or fetch
   useEffect(() => {
     const savedUsers = localStorage.getItem('users');
     if (savedUsers) {
@@ -32,7 +44,7 @@ export default function UserDashboard() {
         .then((res) => res.json())
         .then((data) => {
           setUsers(data);
-          localStorage.setItem('users', JSON.stringify(data)); // Save it for next time
+          localStorage.setItem('users', JSON.stringify(data));
         });
     }
   }, []);
@@ -68,80 +80,110 @@ export default function UserDashboard() {
       <h2 className={styles.title}>Users</h2>
       <SummaryCards users={users} />
 
-      <div className={styles.tableContainer}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>
-                Organization{' '}
-                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
-              </th>
-              <th>
-                Username{' '}
-                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
-              </th>
-              <th>
-                Email{' '}
-                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
-              </th>
-              <th>
-                Phone Number{' '}
-                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
-              </th>
-              <th>
-                Date Joined{' '}
-                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
-              </th>
-              <th>
-                Status{' '}
-                <ListFilter className={styles.filterBtn} onClick={() => setShowFilterModal(true)} />
-              </th>
-              <th></th>
-            </tr>
-          </thead>
-          {showFilterModal && (
-            <FilterModal
-              onClose={() => setShowFilterModal(false)}
-              onApply={(filters) => {
-                setFilterValues(filters);
-                setShowFilterModal(false);
-              }}
-              onReset={() => {
-                setFilterValues({
-                  organization: '',
-                  username: '',
-                  email: '',
-                  date: '',
-                  phone: '',
-                  status: '',
-                });
-              }}
-              values={filterValues}
-              setValues={setFilterValues}
-            />
-          )}
-
-          <tbody>
-            {paginatedUsers.map((user) => (
-              <tr key={user.id}>
-                <td>{user.organization}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.phone}</td>
-                <td>{new Date(user.date_joined).toLocaleString()}</td>
-                <td>
-                  <span className={`${styles.status} ${styles[user.status.toLowerCase()]}`}>
-                    {user.status}
-                  </span>
-                </td>
-                <td>
-                  <ActionMenu user={user} setUsers={setUsers} />
-                </td>
+      {/* Desktop Table */}
+      {!isMobile && (
+        <div className={styles.tableContainer}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                {[
+                  'Organization',
+                  'Username',
+                  'Email',
+                  'Phone Number',
+                  'Date Joined',
+                  'Status',
+                  '',
+                ].map((label) => (
+                  <th key={label}>
+                    {label}{' '}
+                    {label && label !== '' && (
+                      <ListFilter
+                        className={styles.filterBtn}
+                        onClick={() => setShowFilterModal(true)}
+                      />
+                    )}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+
+            {showFilterModal && (
+              <FilterModal
+                onClose={() => setShowFilterModal(false)}
+                onApply={(filters) => {
+                  setFilterValues(filters);
+                  setShowFilterModal(false);
+                }}
+                onReset={() =>
+                  setFilterValues({
+                    organization: '',
+                    username: '',
+                    email: '',
+                    date: '',
+                    phone: '',
+                    status: '',
+                  })
+                }
+                values={filterValues}
+                setValues={setFilterValues}
+              />
+            )}
+
+            <tbody>
+              {paginatedUsers.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.organization}</td>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                  <td>{user.phone}</td>
+                  <td>{new Date(user.date_joined).toLocaleString()}</td>
+                  <td>
+                    <span className={`${styles.status} ${styles[user.status.toLowerCase()]}`}>
+                      {user.status}
+                    </span>
+                  </td>
+                  <td>
+                    <ActionMenu user={user} setUsers={setUsers} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Mobile Card Layout */}
+      {isMobile && (
+        <div className={styles.mobileTable}>
+          {paginatedUsers.map((user) => (
+            <div className={styles.userCard} key={user.id}>
+              <div>
+                <span className={styles.label}>Organization:</span> {user.organization}
+              </div>
+              <div>
+                <span className={styles.label}>Username:</span> {user.username}
+              </div>
+              <div>
+                <span className={styles.label}>Email:</span> {user.email}
+              </div>
+              <div>
+                <span className={styles.label}>Phone:</span> {user.phone}
+              </div>
+              <div>
+                <span className={styles.label}>Date Joined:</span>{' '}
+                {new Date(user.date_joined).toLocaleString()}
+              </div>
+              <div className={`${styles.status} ${styles[user.status.toLowerCase()]}`}>
+                {user.status}
+              </div>
+              <div className={styles.actions}>
+                <ActionMenu user={user} setUsers={setUsers} />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       <Pagination
         currentPage={page}
