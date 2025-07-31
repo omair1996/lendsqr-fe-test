@@ -18,7 +18,19 @@ export default function UserDetails({ user: initialUser }: Props) {
   const navigate = useNavigate();
 
   const handleStatusChange = (newStatus: string) => {
-    setUser((prev) => ({ ...prev, status: newStatus }));
+    const updatedUser = { ...user, status: newStatus };
+    setUser(updatedUser);
+
+    localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
+
+    const savedUsers = localStorage.getItem('users');
+    if (savedUsers) {
+      const parsedUsers: User[] = JSON.parse(savedUsers);
+      const updatedUsers = parsedUsers.map((u) => (u.id === updatedUser.id ? updatedUser : u));
+      localStorage.setItem('users', JSON.stringify(updatedUsers));
+    }
+
+    console.log('Saved to localStorage:', updatedUser);
   };
 
   return (
