@@ -47,3 +47,7 @@ export interface User {
   hasLoan: boolean;
   hasSavings: boolean;
 }
+
+export interface LayoutChildProps {
+  search?: string;
+}

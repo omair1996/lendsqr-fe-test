@@ -1,12 +1,13 @@
 import styles from './Navbar.module.scss';
 import { Bell, ChevronDown, Search } from 'lucide-react';
-import { useState } from 'react';
+import { useSearch } from '@/contexts/SearchContext';
 
 const profilePicture = 'https://avatar.iran.liara.run/public';
 const logo = 'https://res.cloudinary.com/omair1996/image/upload/v1753602119/logo_vizdby.png';
 
 export default function Navbar() {
-  const [search, setSearch] = useState('');
+  const { search, setSearch } = useSearch();
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.left}>
