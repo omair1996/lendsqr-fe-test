@@ -31,11 +31,11 @@
 .rightPane {
   flex: 1;
   display: flex;
-
   flex-direction: column;
   justify-content: center;
   padding: 4rem;
   background-color: $background;
+
   .formWrapper {
     width: 100%;
     max-width: 600px;
@@ -46,9 +46,8 @@
   h2 {
     font-size: 40px;
     color: $heading;
-    line-height: '100%';
     font-weight: 700;
-    letter-spacing: -4%;
+    letter-spacing: -0.04em;
   }
 
   p {
@@ -56,7 +55,6 @@
     color: $text;
     font-weight: 400;
     font-size: 20px;
-    line-height: 100%;
   }
 
   .form {
@@ -70,7 +68,7 @@
     text-align: left;
     font-size: $font-sm;
     font-weight: 600;
-    letter-spacing: 10%;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 }
@@ -78,24 +76,46 @@
 @media (max-width: $breakpoint-md) {
   .loginWrapper {
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    padding-left: 0;
 
     .leftPane {
       display: none;
     }
 
     .rightPane {
+      width: 100%;
       padding: 2rem;
+
       .formWrapper {
-        width: 100%;
         padding: 1rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       h2 {
-        font-size: 32px;
+        font-size: 28px;
+        text-align: center;
       }
 
       p {
         font-size: 16px;
+        text-align: center;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+      }
+
+      .forgot {
+        font-size: 0.75rem;
+        text-align: center;
       }
     }
   }
