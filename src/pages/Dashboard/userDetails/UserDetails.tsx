@@ -8,6 +8,15 @@ export default function UserDetailsPage() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    const storedUser = localStorage.getItem('selectedUser');
+    if (storedUser) {
+      const parsedUser: User = JSON.parse(storedUser);
+      if (parsedUser.id.toString() === id) {
+        setUser(parsedUser);
+        return;
+      }
+    }
+
     fetch('/mock/users.json')
       .then((res) => res.json())
       .then((data: User[]) => {

@@ -16,9 +16,16 @@ export default function ActionMenu({
   const navigate = useNavigate();
 
   const handleStatusChange = (newStatus: string) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((u) => (u.id === user.id ? { ...u, status: newStatus } : u))
-    );
+    const updatedUser = { ...user, status: newStatus };
+
+    setUsers((prevUsers) => {
+      const updatedUsers = prevUsers.map((u) => (u.id === user.id ? updatedUser : u));
+
+      localStorage.setItem('users', JSON.stringify(updatedUsers));
+
+      return updatedUsers;
+    });
+
     setShow(false);
   };
 
@@ -44,7 +51,13 @@ export default function ActionMenu({
 
       {show && (
         <div className={styles.menu}>
-          <button className={styles.item} onClick={() => navigate(`/dashboard/user/${user.id}`)}>
+          <button
+            className={styles.item}
+            onClick={() => {
+              localStorage.setItem('selectedUser', JSON.stringify(user));
+              navigate(`/dashboard/user/${user.id}`);
+            }}
+          >
             <Eye className={styles.icon} />
             View Details
           </button>

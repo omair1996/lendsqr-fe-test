@@ -24,9 +24,17 @@ export default function UserDashboard() {
   const [filterValues, setFilterValues] = useState<FilterValues>({});
 
   useEffect(() => {
-    fetch('/mock/users.json')
-      .then((res) => res.json())
-      .then(setUsers);
+    const savedUsers = localStorage.getItem('users');
+    if (savedUsers) {
+      setUsers(JSON.parse(savedUsers));
+    } else {
+      fetch('/mock/users.json')
+        .then((res) => res.json())
+        .then((data) => {
+          setUsers(data);
+          localStorage.setItem('users', JSON.stringify(data)); // Save it for next time
+        });
+    }
   }, []);
 
   const filteredUsers = users.filter((user) => {
