@@ -6,6 +6,7 @@ import Pagination from '../pagination/Pagination';
 import type { User } from '@/types/User';
 import FilterModal from '../filterModal/FilterModal';
 import ActionMenu from '../actionMenu/ActionMenu';
+import { setWithExpiry, cleanupExpiredLocalStorage, getWithExpiry } from '@/lib/utils';
 
 type FilterValues = {
   organization?: string;
@@ -35,18 +36,33 @@ export default function UserDashboard() {
   }, []);
 
   // Load users from localStorage or fetch
-  useEffect(() => {
-    const savedUsers = localStorage.getItem('users');
-    if (savedUsers) {
-      setUsers(JSON.parse(savedUsers));
-    } else {
-      fetch('/mock/users.json')
-        .then((res) => res.json())
-        .then((data) => {
-          setUsers(data);
-          localStorage.setItem('users', JSON.stringify(data));
-        });
-    }
+  useEffect(() =>  feat-user-details
+    const loadUsers = () => {
+      cleanupExpiredLocalStorage();
+      const savedUsers = getWithExpiry<User[]>('users');
+      if (savedUsers) {
+        setUsers(savedUsers);
+      } else {
+        fetch('/mock/users.json')
+          .then((res) => res.json())
+          .then((data) => {
+            setUsers(data);
+            setWithExpiry('users', data, 1000 * 60 * 60);
+          });
+      }
+    };
+
+    loadUsers();
+
+    // Add storage event listener
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'users') {
+        loadUsers();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const filteredUsers = users.filter((user) => {

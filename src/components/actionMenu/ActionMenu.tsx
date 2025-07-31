@@ -3,6 +3,7 @@ import styles from './ActionMenu.module.scss';
 import { MoreVertical, Eye, XCircle, CheckCircle } from 'lucide-react';
 import type { User } from '@/types/User';
 import { useNavigate } from 'react-router-dom';
+import { setWithExpiry, cleanupExpiredLocalStorage } from '@/lib/utils';
 
 export default function ActionMenu({
   user,
@@ -21,7 +22,8 @@ export default function ActionMenu({
     setUsers((prevUsers) => {
       const updatedUsers = prevUsers.map((u) => (u.id === user.id ? updatedUser : u));
 
-      localStorage.setItem('users', JSON.stringify(updatedUsers));
+      // Save updated users with a 1-hour expiry
+      setWithExpiry('users', updatedUsers, 1000 * 60 * 60);
 
       return updatedUsers;
     });
@@ -29,6 +31,14 @@ export default function ActionMenu({
     setShow(false);
   };
 
+  const handleViewDetails = () => {
+    if (!user.id) {
+      console.error('User ID is missing');
+      return;
+    }
+    setWithExpiry('selectedUser', user, 1000 * 60 * 60);
+    navigate(`/dashboard/user/${user.id}`);
+  };
   const current = user.status.toLowerCase();
   const otherStatuses = ['active', 'inactive', 'blacklisted'].filter((s) => s !== current);
 
@@ -43,6 +53,10 @@ export default function ActionMenu({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    cleanupExpiredLocalStorage();
+  }, []);
+
   return (
     <div className={styles.wrapper} ref={menuRef}>
       <button className={styles.trigger} onClick={() => setShow((prev) => !prev)}>
@@ -51,13 +65,7 @@ export default function ActionMenu({
 
       {show && (
         <div className={styles.menu}>
-          <button
-            className={styles.item}
-            onClick={() => {
-              localStorage.setItem('selectedUser', JSON.stringify(user));
-              navigate(`/dashboard/user/${user.id}`);
-            }}
-          >
+          <button className={styles.item} onClick={handleViewDetails}>
             <Eye className={styles.icon} />
             View Details
           </button>
