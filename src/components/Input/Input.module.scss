@@ -2,9 +2,10 @@
 
 .inputWrapper {
   position: relative;
+  width: 100%;
 
   input {
-    width: 95%;
+    width: 100%;
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -12,7 +13,9 @@
     border-radius: $spacing-xs;
     font-size: $font-md;
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1;
+    box-sizing: border-box;
+
     transition: border 0.2s ease;
     &:focus {
       border-color: $primary-color;
@@ -24,10 +27,6 @@
     color: $danger-color;
     font-size: $font-sm;
     margin-top: 0.25rem;
-  }
-
-  .inputField.error input {
-    border: 1px solid $danger-color;
   }
 
   .toggle {

@@ -1,6 +1,10 @@
 @import './_variables.scss';
 @import './_mixins.scss';
 
+:root {
+  --font-main: #{$font-main};
+}
+
 body {
   font-family: var(--font-main);
   background-color: var(--color-light);
