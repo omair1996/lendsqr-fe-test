@@ -62,7 +62,7 @@ export default function UserDetails({ user: initialUser }: Props) {
       {/* User Summary Card */}
       <div className={styles.summaryCard}>
         <div className={styles.avatar}>
-          <img src={profile.avatar} alt={profile.full_name} />
+          <img src={profile.avatar} alt={profile.avatar} />
         </div>
         <div>
           <h3>{profile.full_name}</h3>

@@ -36,7 +36,7 @@ export default function UserDashboard() {
   }, []);
 
   // Load users from localStorage or fetch
-  useEffect(() =>  feat-user-details
+  useEffect(() => {
     const loadUsers = () => {
       cleanupExpiredLocalStorage();
       const savedUsers = getWithExpiry<User[]>('users');
