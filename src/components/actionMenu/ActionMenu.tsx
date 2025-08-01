@@ -17,18 +17,23 @@ export default function ActionMenu({
   const navigate = useNavigate();
 
   const handleStatusChange = (newStatus: string) => {
-    const updatedUser = { ...user, status: newStatus };
+    try {
+      const updatedUser = { ...user, status: newStatus };
 
-    setUsers((prevUsers) => {
-      const updatedUsers = prevUsers.map((u) => (u.id === user.id ? updatedUser : u));
+      setUsers((prevUsers) => {
+        const updatedUsers = prevUsers.map((u) => (u.id === user.id ? updatedUser : u));
 
-      // Save updated users with a 1-hour expiry
-      setWithExpiry('users', updatedUsers, 1000 * 60 * 60);
+        // Save updated users with a 1-hour expiry
+        setWithExpiry('users', updatedUsers, 1000 * 60 * 60);
 
-      return updatedUsers;
-    });
+        return updatedUsers;
+      });
 
-    setShow(false);
+      setShow(false);
+    } catch (error) {
+      console.error('Error updating user status:', error);
+      setShow(false); // Still close the menu even if there was an error
+    }
   };
 
   const handleViewDetails = () => {

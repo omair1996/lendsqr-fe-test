@@ -24,7 +24,7 @@ export default function UserDetailsPage() {
       });
   }, [id]);
 
-  if (!user) return console.log('user not found');
+  if (!user) return <p>User not found...</p>;
 
   return <UserDetails user={user} />;
 }
