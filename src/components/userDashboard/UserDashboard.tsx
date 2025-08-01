@@ -7,6 +7,7 @@ import type { User } from '@/types/User';
 import FilterModal from '../filterModal/FilterModal';
 import ActionMenu from '../actionMenu/ActionMenu';
 import { setWithExpiry, cleanupExpiredLocalStorage, getWithExpiry } from '@/lib/utils';
+import { useSearch } from '@/contexts/SearchContext';
 
 type FilterValues = {
   organization?: string;
@@ -24,6 +25,7 @@ export default function UserDashboard() {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [filterValues, setFilterValues] = useState<FilterValues>({});
   const [isMobile, setIsMobile] = useState(false);
+  const { search } = useSearch();
 
   // Check screen size
   useEffect(() => {
@@ -66,7 +68,35 @@ export default function UserDashboard() {
   }, []);
 
   const filteredUsers = users.filter((user) => {
+    const searchLower = search.toLowerCase();
+    const userDate = new Date(user.date_joined);
+    const formattedDate = userDate.toLocaleDateString('en-US', {
+      month: 'short',
+      year: 'numeric',
+    });
+    const numericDate = userDate
+      .toLocaleDateString('en-US', {
+        month: '2-digit',
+        year: 'numeric',
+      })
+      .replace(/\//g, '');
+
+    const matchesSearch =
+      search === '' ||
+      user.organization.toLowerCase().includes(searchLower) ||
+      user.username.toLowerCase().includes(searchLower) ||
+      user.email.toLowerCase().includes(searchLower) ||
+      user.phone.toLowerCase().includes(searchLower) ||
+      user.status.toLowerCase().includes(searchLower) ||
+      user.profile.full_name.toLowerCase().includes(searchLower) ||
+      user.education.level.toLowerCase().includes(searchLower) ||
+      user.guarantor.some((g) => g.name.toLowerCase().includes(searchLower));
+    formattedDate.toLowerCase().includes(searchLower) ||
+      numericDate.includes(search) ||
+      user.date_joined.includes(search);
+
     return (
+      matchesSearch &&
       (!filterValues.organization || user.organization.includes(filterValues.organization)) &&
       (!filterValues.username || user.username.includes(filterValues.username)) &&
       (!filterValues.email || user.email.includes(filterValues.email)) &&
@@ -83,7 +113,7 @@ export default function UserDashboard() {
 
   useEffect(() => {
     setPage(1);
-  }, [itemsPerPage]);
+  }, [search, filterValues, itemsPerPage]);
 
   useEffect(() => {
     if (page > totalPages) {
@@ -96,7 +126,6 @@ export default function UserDashboard() {
       <h2 className={styles.title}>Users</h2>
       <SummaryCards users={users} />
 
-      {/* Desktop Table */}
       {!isMobile && (
         <div className={styles.tableContainer}>
           <table className={styles.table}>
