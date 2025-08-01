@@ -19,6 +19,11 @@
   align-items: flex-start;
   color: $text;
 
+  .iconWrapper {
+    svg {
+      color: inherit;
+    }
+  }
   p {
     font-size: 0.8rem;
     text-transform: uppercase;
