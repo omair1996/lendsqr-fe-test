@@ -8,6 +8,7 @@ import FilterModal from '../filterModal/FilterModal';
 import ActionMenu from '../actionMenu/ActionMenu';
 import { setWithExpiry, cleanupExpiredLocalStorage, getWithExpiry } from '@/lib/utils';
 import { useSearch } from '@/contexts/SearchContext';
+import LoadingIndicator from '../loading/LoadingIndicator';
 
 type FilterValues = {
   organization?: string;
@@ -18,6 +19,13 @@ type FilterValues = {
   status?: string;
 };
 
+// Type guard to check if data is a valid User array
+const isValidUserArray = (data: unknown): data is User[] => {
+  return (
+    Array.isArray(data) && (data.length === 0 || (typeof data[0] === 'object' && 'id' in data[0]))
+  );
+};
+
 export default function UserDashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [page, setPage] = useState(1);
@@ -26,6 +34,7 @@ export default function UserDashboard() {
   const [filterValues, setFilterValues] = useState<FilterValues>({});
   const [isMobile, setIsMobile] = useState(false);
   const { search } = useSearch();
+  const [loading, setLoading] = useState(true); // Add loading state
 
   // Check screen size
   useEffect(() => {
@@ -39,18 +48,33 @@ export default function UserDashboard() {
 
   // Load users from localStorage or fetch
   useEffect(() => {
-    const loadUsers = () => {
+    const loadUsers = async () => {
+      setLoading(true);
       cleanupExpiredLocalStorage();
-      const savedUsers = getWithExpiry<User[]>('users');
-      if (savedUsers) {
-        setUsers(savedUsers);
-      } else {
-        fetch('/mock/users.json')
-          .then((res) => res.json())
-          .then((data) => {
-            setUsers(data);
-            setWithExpiry('users', data, 1000 * 60 * 60);
-          });
+      const savedData = getWithExpiry('users');
+
+      try {
+        let usersToSet: User[] = [];
+
+        if (savedData && isValidUserArray(savedData)) {
+          usersToSet = savedData;
+        } else {
+          const response = await fetch('/mock/users.json');
+          if (!response.ok) throw new Error('Failed to fetch users');
+
+          const data = await response.json();
+          if (!isValidUserArray(data)) throw new Error('Invalid user data format');
+
+          usersToSet = data;
+          setWithExpiry('users', data, 1000 * 60 * 60);
+        }
+
+        setUsers(usersToSet);
+      } catch (error) {
+        console.error('Error loading users:', error);
+        setUsers([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -121,6 +145,10 @@ export default function UserDashboard() {
     }
   }, [totalPages, page]);
 
+  if (loading) {
+    return <LoadingIndicator data-testid="loading-indicator" />;
+  }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Users</h2>
@@ -146,6 +174,7 @@ export default function UserDashboard() {
                       <ListFilter
                         className={styles.filterBtn}
                         onClick={() => setShowFilterModal(true)}
+                        size={15}
                       />
                     )}
                   </th>
@@ -200,7 +229,7 @@ export default function UserDashboard() {
 
       {/* Mobile Card Layout */}
       {isMobile && (
-        <div className={styles.mobileTable}>
+        <div className={styles.mobileTable} data-testid="mobile-table">
           {paginatedUsers.map((user) => (
             <div className={styles.userCard} key={user.id}>
               <div>
