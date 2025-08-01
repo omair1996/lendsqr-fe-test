@@ -21,6 +21,10 @@
       border-color: $primary-color;
       outline: none;
     }
+
+    &.error {
+      border-color: $danger-color;
+    }
   }
 
   .errorText {

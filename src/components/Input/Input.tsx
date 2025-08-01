@@ -16,25 +16,41 @@ const InputField = ({ type, placeholder, showToggle = false, value, onChange, er
 
   const actualType = type === 'password' && visible ? 'text' : type;
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      if (!touched) setTouched(true);
+      onChange(e);
+    } catch (error) {
+      console.error('Error in input change:', error);
+    }
+  };
+
   return (
     <div className={styles.inputWrapper}>
       <input
         type={actualType}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => {
-          if (!touched) setTouched(true);
-          onChange(e);
-        }}
+        onChange={handleChange}
         onBlur={() => setTouched(true)}
         className={error && touched ? styles.error : ''}
+        aria-invalid={error && touched}
       />
       {showToggle && (
-        <span className={styles.toggle} onClick={() => setVisible(!visible)}>
+        <button
+          type="button"
+          className={styles.toggle}
+          onClick={() => setVisible(!visible)}
+          aria-label={visible ? 'Hide password' : 'Show password'}
+        >
           {visible ? 'HIDE' : 'SHOW'}
+        </button>
+      )}
+      {error && touched && (
+        <span className={styles.errorText} role="alert">
+          This field is required
         </span>
       )}
-      {error && <span className={styles.errorText}>This field is required</span>}
     </div>
   );
 };
