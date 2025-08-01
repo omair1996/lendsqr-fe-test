@@ -10,10 +10,13 @@
   border-bottom: 1px solid $border-color;
   gap: 1rem;
 
-  // 1100px breakpoint
   @media (max-width: 1100px) {
     padding: 0.75rem 1.5rem;
     gap: 0.75rem;
+  }
+
+  @media (max-width: 600px) {
+    gap: 0.5rem;
   }
 }
 
@@ -26,7 +29,6 @@
   img {
     max-height: 24px;
 
-    // 1100px breakpoint
     @media (max-width: 1100px) {
       max-height: 20px;
     }
@@ -36,7 +38,6 @@
     }
   }
 
-  // 1100px breakpoint
   @media (max-width: 1100px) {
     gap: 0.75rem;
   }
@@ -46,27 +47,42 @@
   }
 }
 
+.hamburger {
+  display: none;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: $text;
+  }
+}
+
 .searchContainer {
   flex: 1;
-  max-width: 450px;
   display: flex;
   align-items: center;
   margin: 0 2rem;
+  max-width: 450px;
   width: 100%;
 
-  // 1100px breakpoint
   @media (max-width: 1100px) {
     max-width: 350px;
     margin: 0 1rem;
   }
 
-  @media (max-width: 770px) {
-    max-width: 250px;
-    margin: 0 1rem;
+  @media (max-width: 965px) {
+    max-width: none;
+    margin: 0;
   }
 
   .searchInput {
     flex: 1;
+    min-width: 0;
     height: $spacing-lg + $spacing-sm;
     padding: 0 1rem;
     font-size: 0.9rem;
@@ -74,18 +90,16 @@
     background-color: $background;
     border-radius: 8px 0 0 8px;
 
-    // 1100px breakpoint
     @media (max-width: 1100px) {
       height: $spacing-lg;
-      padding: 0 0.75rem;
       font-size: 0.85rem;
-      border-radius: 8px;
+      border-radius: 0;
     }
+
     @media (max-width: 965px) {
-      height: $spacing-lg;
-      padding: 0 0.5rem;
-      font-size: 0.55rem;
-      width: $spacing-lg;
+      width: 100%;
+
+      font-size: 0.8rem;
     }
 
     &:focus {
@@ -110,28 +124,22 @@
     border: none;
     cursor: pointer;
 
-    // 1100px breakpoint
+    svg {
+      stroke: white;
+    }
+
     @media (max-width: 1100px) {
       height: $spacing-lg + $spacing-xs;
       min-width: $spacing-lg + $spacing-sm;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
 
     @media (max-width: 965px) {
       display: none;
-    }
-
-    svg {
-      stroke: white;
-
-      // 1100px breakpoint
-      @media (max-width: 1100px) {
-        width: 16px;
-        height: 16px;
-      }
-
-      @media (max-width: 965px) {
-        display: none;
-      }
     }
   }
 }
@@ -142,9 +150,12 @@
   gap: 1.5rem;
   flex-shrink: 0;
 
-  // 1100px breakpoint
   @media (max-width: 1100px) {
     gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    display: none;
   }
 
   .docsLink {
@@ -154,7 +165,6 @@
     text-decoration: underline;
     cursor: pointer;
 
-    // 1100px breakpoint
     @media (max-width: 1100px) {
       font-size: 0.8rem;
     }
@@ -168,7 +178,6 @@
     cursor: pointer;
     color: #213f7d;
 
-    // 1100px breakpoint
     @media (max-width: 1100px) {
       svg {
         width: 18px;
@@ -188,7 +197,6 @@
     object-fit: cover;
     cursor: pointer;
 
-    // 1100px breakpoint
     @media (max-width: 1100px) {
       width: 28px;
       height: 28px;
@@ -203,7 +211,6 @@
     font-size: 0.9rem;
     color: #213f7d;
 
-    // 1100px breakpoint
     @media (max-width: 1100px) {
       font-size: 0.8rem;
     }
@@ -217,7 +224,6 @@
     cursor: pointer;
     color: #213f7d;
 
-    // 1100px breakpoint
     @media (max-width: 1100px) {
       svg {
         width: 16px;
@@ -225,7 +231,7 @@
       }
     }
 
-    @media (max-width: 7700px) {
+    @media (max-width: 600px) {
       display: none;
     }
   }
