@@ -3,17 +3,12 @@ import { Bell, ChevronDown, Search } from 'lucide-react';
 import { useSearch } from '@/contexts/SearchContext';
 
 const profilePicture = 'https://avatar.iran.liara.run/public';
-const logo = 'https://res.cloudinary.com/omair1996/image/upload/v1753602119/logo_vizdby.png';
 
 export default function Navbar() {
   const { search, setSearch } = useSearch();
 
   return (
     <nav className={styles.navbar}>
-      <div className={styles.left}>
-        <img src={logo} alt="Lendsqr Logo" width={120} height={24} />
-      </div>
-
       <div className={styles.searchContainer}>
         <input
           type="text"

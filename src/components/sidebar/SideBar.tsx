@@ -24,6 +24,7 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './Sidebar.module.scss';
 import { useEffect } from 'react';
+const logo = 'https://res.cloudinary.com/omair1996/image/upload/v1753602119/logo_vizdby.png';
 
 type SidebarItem = {
   icon: React.ElementType;
@@ -108,9 +109,14 @@ export default function Sidebar() {
         </button>
       )}
       <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
-        <button className={styles.collapseBtn} onClick={() => setCollapsed(!collapsed)}>
-          {collapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
-        </button>
+        <div className={styles.header}>
+          <div className={styles.logo}>
+            <img src={logo} alt="Lendsqr Logo" width={120} height={24} />
+          </div>
+          <button className={styles.collapseBtn} onClick={() => setCollapsed(!collapsed)}>
+            {collapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+          </button>
+        </div>
 
         {sidebarItems.map((group, i) => (
           <div key={i} className="">

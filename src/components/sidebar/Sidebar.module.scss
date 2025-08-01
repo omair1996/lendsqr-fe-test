@@ -18,10 +18,29 @@
     display: none;
   }
 
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background-color: $white;
+    border-bottom: 1px solid $border-color;
+
+    .logo {
+      display: flex;
+      align-items: center;
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+
   &.collapsed {
     width: 80px;
-
-    .sidebarItem span,
+    .logo .sidebarItem span,
     .sidebarSection {
       display: none;
     }
