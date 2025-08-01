@@ -104,23 +104,41 @@ export default function Sidebar() {
   return (
     <>
       {isMobile && collapsed && (
-        <button className={styles.menuBtn} onClick={() => setCollapsed(false)}>
+        <button
+          className={styles.menuBtn}
+          onClick={() => setCollapsed(false)}
+          data-testid="mobile-menu-button"
+          aria-label="Open menu"
+        >
           <Menu size={24} />
         </button>
       )}
-      <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
+      <aside
+        className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}
+        data-testid="sidebar"
+        aria-expanded={!collapsed}
+      >
         <div className={styles.header}>
-          <div className={styles.logo}>
+          <div className={styles.logo} data-testid="logo">
             <img src={logo} alt="Lendsqr Logo" width={120} height={24} />
           </div>
-          <button className={styles.collapseBtn} onClick={() => setCollapsed(!collapsed)}>
+          <button
+            className={styles.collapseBtn}
+            onClick={() => setCollapsed(!collapsed)}
+            data-testid="collapse-button"
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
             {collapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
           </button>
         </div>
 
         {sidebarItems.map((group, i) => (
-          <div key={i} className="">
-            {group.section && <p className={styles.sidebarSection}>{group.section}</p>}
+          <div key={i} className="" data-testid={`sidebar-group-${i}`}>
+            {group.section && (
+              <p className={styles.sidebarSection} data-testid="sidebar-section">
+                {group.section}
+              </p>
+            )}
             {group.items.map(({ icon: Icon, label, path, isOrgSwitcher }) =>
               path ? (
                 <NavLink
@@ -131,16 +149,25 @@ export default function Sidebar() {
                       isOrgSwitcher ? styles.orgSwitch : ''
                     }`
                   }
+                  data-testid={`nav-link-${label.toLowerCase().replace(/\s+/g, '-')}`}
+                  aria-current="page"
                 >
-                  <Icon size={16} />
+                  <Icon
+                    size={16}
+                    data-testid={`icon-${label.toLowerCase().replace(/\s+/g, '-')}`}
+                  />
                   {!collapsed && <span>{label}</span>}
                 </NavLink>
               ) : (
                 <div
                   key={label}
                   className={`${styles.sidebarItem} ${isOrgSwitcher ? styles.orgSwitch : ''}`}
+                  data-testid={`nav-item-${label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  <Icon size={16} />
+                  <Icon
+                    size={16}
+                    data-testid={`icon-${label.toLowerCase().replace(/\s+/g, '-')}`}
+                  />
                   {!collapsed && <span>{label}</span>}
                 </div>
               )
