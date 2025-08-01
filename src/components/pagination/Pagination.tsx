@@ -9,6 +9,7 @@ type Props = {
   onPageChange: (page: number) => void;
   itemsPerPage: number;
   onItemsPerPageChange: (size: number) => void;
+  totalItems?: number;
 };
 
 const Pagination: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const Pagination: React.FC<Props> = ({
   onPageChange,
   itemsPerPage,
   onItemsPerPageChange,
+  totalItems = 10,
 }) => {
   if (totalPages <= 1) return null;
 
@@ -49,7 +51,7 @@ const Pagination: React.FC<Props> = ({
   const renderPages = () =>
     getVisiblePages().map((page, i) =>
       page === '...' ? (
-        <span key={`dots-${i}`} className={styles.dots}>
+        <span key={`dots-${i}`} className={styles.dots} data-testid="pagination-dots">
           ...
         </span>
       ) : (
@@ -59,6 +61,8 @@ const Pagination: React.FC<Props> = ({
             [styles.active]: page === currentPage,
           })}
           onClick={() => handleClick(page)}
+          data-testid={`page-button-${page}`}
+          aria-current={page === currentPage ? 'page' : undefined}
         >
           {page}
         </button>
@@ -66,27 +70,30 @@ const Pagination: React.FC<Props> = ({
     );
 
   return (
-    <div className={styles.paginationWrapper}>
-      <div className={styles.sortWrapper}>
+    <div className={styles.paginationWrapper} data-testid="pagination">
+      <div className={styles.sortWrapper} data-testid="items-per-page-selector">
         <span>Showing</span>
         <select
           className={styles.select}
           value={itemsPerPage}
           onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
+          data-testid="items-per-page-select"
         >
           {[10, 50, 100].map((size) => (
-            <option key={size} value={size}>
+            <option key={size} value={size} data-testid={`option-${size}`}>
               {size}
             </option>
           ))}
         </select>
-        <span>Out of 100</span>
+        <span>out of {totalItems}</span>
       </div>
-      <div className={styles.buttonWrapper}>
+      <div className={styles.buttonWrapper} data-testid="page-navigation">
         <button
           className={styles.navBtn}
           onClick={() => handleClick(currentPage - 1)}
           disabled={currentPage === 1}
+          data-testid="prev-button"
+          aria-label="Previous page"
         >
           <ChevronLeft />
         </button>
@@ -97,6 +104,8 @@ const Pagination: React.FC<Props> = ({
           className={styles.navBtn}
           onClick={() => handleClick(currentPage + 1)}
           disabled={currentPage === totalPages}
+          data-testid="next-button"
+          aria-label="Next page"
         >
           <ChevronRight />
         </button>
