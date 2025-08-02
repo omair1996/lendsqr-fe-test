@@ -21,6 +21,10 @@
       border-color: $primary-color;
       outline: none;
     }
+
+    &.error {
+      border-color: $danger-color;
+    }
   }
 
   .errorText {
@@ -38,5 +42,7 @@
     cursor: pointer;
     font-weight: bold;
     font-size: $font-sm;
+    background: transparent;
+    border: none;
   }
 }
