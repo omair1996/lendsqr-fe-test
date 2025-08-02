@@ -51,7 +51,14 @@ export function getWithExpiry<T = any>(key: string): T | null {
 export function cleanupExpiredLocalStorage() {
   const now = new Date().getTime();
 
-  Object.keys(localStorage).forEach((key) => {
+  // Create an array of keys first to avoid modification during iteration
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key) keys.push(key);
+  }
+
+  keys.forEach((key) => {
     const itemStr = localStorage.getItem(key);
     if (!itemStr) return;
 
