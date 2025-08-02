@@ -9,8 +9,10 @@ export default function UserDetailsPage() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const storedUser = getWithExpiry<User>('selectedUser');
+    // Handle missing ID case
+    if (!id) return;
 
+    const storedUser = getWithExpiry<User>('selectedUser');
     if (storedUser && storedUser.id && storedUser.id.toString() === id) {
       setUser(storedUser);
       return;
@@ -21,10 +23,13 @@ export default function UserDetailsPage() {
       .then((data: User[]) => {
         const foundUser = data.find((u) => u.id.toString() === id);
         setUser(foundUser || null);
+      })
+      .catch((error) => {
+        console.error('Failed to fetch users:', error);
+        setUser(null);
       });
   }, [id]);
 
   if (!user) return <p>User not found...</p>;
-
   return <UserDetails user={user} />;
 }
