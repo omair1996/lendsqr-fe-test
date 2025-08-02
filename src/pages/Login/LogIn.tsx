@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styles from './Login.module.scss';
 import InputField from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
-import LoadingIndicator from '../../components/loading/LoadingIndicator';
 import { useNavigate } from 'react-router-dom';
 
 const logo = 'https://res.cloudinary.com/omair1996/image/upload/v1753602119/logo_vizdby.png';
@@ -13,7 +12,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: false, password: false });
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const validateEmail = (email: string) =>
@@ -28,18 +26,10 @@ const Login = () => {
 
     if (!emailValid || !passwordValid) return;
 
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      navigate('/dashboard/user', { replace: true });
-    }, 2000);
+    navigate('/dashboard/user', { replace: true });
   };
 
-  return loading ? (
-    <div>
-      <LoadingIndicator />
-    </div>
-  ) : (
+  return (
     <div className={styles.loginWrapper}>
       <div className={styles.leftPane}>
         <img src={logo} alt="Lendsqr Logo" className={styles.logo} />
@@ -71,9 +61,7 @@ const Login = () => {
               FORGOT PASSWORD?
             </a>
 
-            <Button type="submit" disabled={loading}>
-              {loading ? 'Logging in...' : 'Login'}
-            </Button>
+            <Button type="submit">{'Login'}</Button>
           </form>
         </div>
       </div>
