@@ -14,7 +14,7 @@ React Router DOM
 Vitest + React Testing Library
 ESLint + Prettier
 Mock backend via local users.json
-Session management via localStorage with expiry
+localStorage with expiry
 
 📥 Installation & Setup
 
@@ -26,13 +26,53 @@ Access the app at http://localhost:5173.
 
 🔐 Authentication
 
-Login is mocked — you can use any random email and password to Login.
-A session is stored in localStorage using custom helpers:
-setWithExpiry(key: string, value: any, ttl: number)
-getWithExpiry(key: string)
-The TTL (time to live) is set to 1 hour (3600000 ms).
-After 1 hour, getWithExpiry() automatically detects expiry and removes the session key, simulating a logout.
-This ensures session cleanup and mimics real-world session expiration behavior without a backend.
+Login is not real — any random email and password grants access to simulate authentication.
+
+Why: Keeps the app frontend-only, with no backend or token management....
+
+🧠 Routing & Layouts
+ 
+Used React Router DOM for navigation:
+
+/login – login screen
+
+/dashboard – user list view
+
+/dashboard/users/:id – individual user profile
+
+Wrapped all dashboard pages in a reusable layout component (navbar + sidebar).
+
+Why: Reflects real-world routing structure, promotes layout reuse.
+
+
+
+🔑 User Data Persistence with localStorage
+    This is a key logic point in the app.
+
+How it works:
+On user actions like Blacklist or Activate, the app:
+
+Updates the user object in-memory
+
+Stores it in localStorage using a setWithExpiry() helper
+
+TTL is 1 hour (3600000ms)
+
+On reload or revisit:
+
+The app checks if there's an updated version in localStorage
+
+If yes, it renders the saved version
+
+If expired or not found, it loads the default mock data from mock/users.json
+
+Why this approach:
+
+Simulates state persistence without needing a backend
+
+Makes interactions feel responsive and consistent across reloads
+
+Automatically expires and clears stale data
 
 🗂️ Project Structure
 
@@ -85,14 +125,14 @@ Scalability — easy onboarding for new developers
 Tests are written using Vitest + React Testing Library.
 
 yarn test
-Covers rendering, interactions, filter logic, pagination, and session handling.
+Covers rendering, interactions, filter logic, pagination, and Persistence handling.
 
 🧺 Code Quality
 
 Code is written with TypeScript, ESLint, and Prettier.
 Type-safety via strict TypeScript rules
 SCSS Modules ensure isolated styling
-Mocked logic (users.json, session utilities) mimics backend behavior
+Mocked logic (users.json, Persistence utilities) mimics backend behavior
 
 ⚙️ Deployment
 App is deployed on Netlify via vite build.
